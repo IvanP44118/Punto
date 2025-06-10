@@ -96,7 +96,7 @@ public class loguin extends javax.swing.JFrame {
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 550, 650));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 550, 650));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\chiqu\\OneDrive\\Documents\\NetBeansProjects\\punto\\src\\imagenes\\FONDO3.jpg")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 980, 870));
