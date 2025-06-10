@@ -30,6 +30,8 @@ public class cortedecaja extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,6 +50,13 @@ public class cortedecaja extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         jButton1.setText("Guardar");
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, 40));
+
+        jLabel3.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        jLabel3.setText("dinero :");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -91,6 +100,8 @@ public class cortedecaja extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
