@@ -29,16 +29,14 @@ public class loguin extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPasswordField2 = new javax.swing.JPasswordField();
+        jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -50,68 +48,108 @@ public class loguin extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("LOGIN");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 90, 70));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\chiqu\\OneDrive\\Documents\\NetBeansProjects\\punto\\src\\imagenes\\liginf.png")); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 270, 180));
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 80, -1));
 
         jLabel4.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setLabelFor(jTextField2);
         jLabel4.setText("Usuario");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 190, 50));
+        jLabel4.setToolTipText("");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 90, 50));
 
         jLabel5.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
+        jLabel5.setLabelFor(jPasswordField2);
         jLabel5.setText("Contraseña");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
 
         jTextField2.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 300, 50));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 300, 50));
 
+        jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         jButton1.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
-        jButton1.setText("iniciar");
+        jButton1.setText("Iniciar Sesion");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 540, 140, 60));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 190, 50));
 
-        jLabel6.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
-        jLabel6.setText("Punto de Venta ");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
         jLabel7.setText("Rol");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, -1, -1));
 
         jPasswordField2.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jPanel1.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 300, 50));
+        jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 300, 50));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 110, 120));
 
         jComboBox1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administracion", "Empleado", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administracion", "Empleado" }));
+        jComboBox1.setToolTipText("");
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, 20));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 300, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 550, 650));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\chiqu\\OneDrive\\Documents\\NetBeansProjects\\punto\\src\\imagenes\\FONDO3.jpg")); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 980, 870));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 570, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jfventas ventas =new jfventas();
-        ventas.s
+        String usuario = jPasswordField2.getText();
+        String password = jTextField2.getText();
+        String rol = jComboBox1.getSelectedItem().toString();
+
+        if (usuario.isEmpty() || password.isEmpty() || rol.equals(" ")) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Por favor complete todos los campos", 
+                "Error de validación", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+          
+        if (conex.Usuario.validarUsuario(usuario, password, rol)) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Bienvenido al sistema", 
+                "Login exitoso", 
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            
+            // Abrir la ventana principal según el rol
+            if (rol.equals("Administracion")) {
+                punto.panel panel = new punto.panel();
+                panel.setVisible(true);
+            } else {
+                punto.jfventas ventas = new punto.jfventas();
+                ventas.setVisible(true);
+            }
+            this.dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Usuario o contraseña incorrectos", 
+                "Error de autenticación", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,15 +189,13 @@ public class loguin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
