@@ -51,22 +51,22 @@ public class loguin extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("LOGIN");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 80, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 230, -1));
 
         jLabel4.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setLabelFor(jTextField2);
         jLabel4.setText("Usuario");
         jLabel4.setToolTipText("");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 90, 50));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 180, 50));
 
         jLabel5.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
         jLabel5.setLabelFor(jPasswordField2);
         jLabel5.setText("Contraseña");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
 
         jTextField2.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 300, 50));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 300, 50));
 
         jButton1.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
         jButton1.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
@@ -81,7 +81,7 @@ public class loguin extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Sitka Small", 0, 24)); // NOI18N
         jLabel7.setText("Rol");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
 
         jPasswordField2.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +89,7 @@ public class loguin extends javax.swing.JFrame {
                 jPasswordField2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 300, 50));
+        jPanel1.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 300, 50));
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 110, 120));
 
         jComboBox1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
@@ -100,16 +100,9 @@ public class loguin extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 300, 50));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 300, 50));
 
-<<<<<<< HEAD
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 550, 650));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\chiqu\\OneDrive\\Documents\\NetBeansProjects\\punto\\src\\imagenes\\FONDO3.jpg")); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 980, 870));
-=======
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 570, 510));
->>>>>>> fa9b32070f945735e36da317914160460c528c1d
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 550, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
