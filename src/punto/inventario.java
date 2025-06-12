@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package punto;
 
-/**
- *
- * @author chiqu
- */
+
 public class inventario extends javax.swing.JFrame {
 
     /**
@@ -16,7 +10,72 @@ public class inventario extends javax.swing.JFrame {
      */
     public inventario() {
         initComponents();
+         }
+               
+     private void agregarProducto() {
+    try {
+        String idTexto = txtid.getText().trim();
+        String nombre = txtnombre.getText().trim();
+        String cantidadTexto = txtcantidad.getText().trim();
+
+        if (idTexto.isEmpty() || nombre.isEmpty() || cantidadTexto.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            return;
+        }
+
+        int id = Integer.parseInt(idTexto);
+        int cantidad = Integer.parseInt(cantidadTexto);
+
+        java.sql.Connection con = conex.Conexion.getConexion();
+
+        // Verificar si el producto ya existe
+        String verificarSQL = "SELECT COUNT(*) FROM productos WHERE id_producto = ?";
+        java.sql.PreparedStatement verificarStmt = con.prepareStatement(verificarSQL);
+        verificarStmt.setInt(1, id);
+        java.sql.ResultSet rs = verificarStmt.executeQuery();
+        rs.next();
+        boolean existe = rs.getInt(1) > 0;
+
+        if (existe) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El producto ya existe. Usa editar para modificarlo.");
+            return;
+        }
+
+        // Insertar en productos
+        String sqlInsertar = "INSERT INTO productos (id_producto, nombre, stock, categoria_id, precio_unitario) VALUES (?, ?, ?, ?, ?)";
+        java.sql.PreparedStatement ps = con.prepareStatement(sqlInsertar);
+        ps.setInt(1, id);
+        ps.setString(2, nombre);
+        ps.setInt(3, cantidad);
+        ps.setInt(4, 1); // Categoria por defecto, puedes usar una lista desplegable en el futuro
+        ps.setDouble(5, 0.0); // Precio por defecto
+        ps.executeUpdate();
+
+        // Insertar en movimientos_inventario
+        String sqlMov = "INSERT INTO movimientos_inventario (producto_id, tipo_movimiento, cantidad) VALUES (?, 'entrada', ?)";
+        java.sql.PreparedStatement psMov = con.prepareStatement(sqlMov);
+        psMov.setInt(1, id);
+        psMov.setInt(2, cantidad);
+        psMov.executeUpdate();
+
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtable1.getModel();
+        modelo.addRow(new Object[]{id, nombre, cantidad});
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Producto agregado correctamente.");
+
+        txtid.setText("");
+        txtnombre.setText("");
+        txtcantidad.setText("");
+
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "ID y Cantidad deben ser números enteros.");
+    } catch (java.sql.SQLIntegrityConstraintViolationException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un producto con ese ID.");
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al agregar producto: " + e.getMessage());
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,23 +87,23 @@ public class inventario extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jtable1 = new javax.swing.JTable();
+        btnagregar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btneditar = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtid = new javax.swing.JTextField();
         label1 = new java.awt.Label();
-        jTextField3 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        txtcantidad = new javax.swing.JTextField();
+        btnsalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -55,71 +114,86 @@ public class inventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 670, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 255, 0));
-        jButton1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton1.setText("Agregar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        btnagregar.setBackground(new java.awt.Color(0, 255, 0));
+        btnagregar.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        btnagregar.setText("Agregar");
+        btnagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnagregarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton2.setText("Editar ");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, -1, -1));
+        btneditar.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        btneditar.setText("Editar ");
+        getContentPane().add(btneditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, -1, -1));
 
-        jButton3.setBackground(new java.awt.Color(255, 0, 0));
-        jButton3.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 51, 51));
-        jButton3.setText("Eliminar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        btneliminar.setBackground(new java.awt.Color(255, 0, 0));
+        btneliminar.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        btneliminar.setForeground(new java.awt.Color(255, 51, 51));
+        btneliminar.setText("Eliminar");
+        getContentPane().add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         jLabel2.setText("Nombre del producto");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtnombre.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtnombreActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 210, -1));
+        getContentPane().add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 210, -1));
 
         jLabel3.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         jLabel3.setText("Id del producto");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jTextField2.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 210, -1));
+        txtid.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 210, -1));
 
         label1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         label1.setText("Cantidad");
         getContentPane().add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 30));
 
-        jTextField3.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtcantidad.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtcantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtcantidadActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 70, -1));
+        getContentPane().add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 70, -1));
 
-        jButton4.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton4.setText("Salir");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
+        btnsalir.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        btnsalir.setText("Salir");
+        getContentPane().add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtnombreActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtcantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtcantidadActionPerformed
+
+    private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
+    btnagregar.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        agregarProducto();
+    }
+});
+
+
+    }//GEN-LAST:event_btnagregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,18 +231,18 @@ public class inventario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnagregar;
+    private javax.swing.JButton btneditar;
+    private javax.swing.JButton btneliminar;
+    private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable jtable1;
     private java.awt.Label label1;
+    private javax.swing.JTextField txtcantidad;
+    private javax.swing.JTextField txtid;
+    private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 }

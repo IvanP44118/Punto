@@ -14,13 +14,7 @@ public class Conexion {
          try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // Línea clave
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("¡Conexión exitosa con la BD!");
-            conn.close();
-        Connection conn = null;
-         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Línea clave
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("tConexion exitosa!");
+            System.out.println("Conexion exitosa!");
         } catch (ClassNotFoundException e) {
             System.out.println("Error: Driver JDBC no encontrado.");
         } catch (SQLException e) {
