@@ -28,7 +28,7 @@ public class Usuario {
 
         try {
             conn = Conexion.getConexion();
-            String sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ? AND rol = ?";
+            String sql = "SELECT * FROM usuarios WHERE usuario = nombre_usuario  AND password = contraseña? AND rol = rol";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuario);
             stmt.setString(2, password);

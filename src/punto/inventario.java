@@ -135,7 +135,6 @@ public class inventario extends javax.swing.JFrame {
 
         btneliminar.setBackground(new java.awt.Color(255, 0, 0));
         btneliminar.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        btneliminar.setForeground(new java.awt.Color(255, 51, 51));
         btneliminar.setText("Eliminar");
         getContentPane().add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
 
