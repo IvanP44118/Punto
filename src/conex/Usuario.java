@@ -16,19 +16,25 @@ public class Usuario {
         this.rol = rol;
     }
 
+    
+    
     public static boolean validarUsuario(String usuario, String password, String rol) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         boolean valido = false;
         
-       /* System.out.println("usua"+usuario);
+        
+        
+        System.out.println("usua"+usuario);
         System.out.println("pass"+password);
-        System.out.println(rol);*/
+        System.out.println(rol);
+        System.out.println("Ejecutando query...");
+
 
         try {
             conn = Conexion.getConexion();
-            String sql = "SELECT * FROM usuarios WHERE usuario = nombre_usuario  AND password = contraseña? AND rol = rol";
+            String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contraseña = ? AND rol = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuario);
             stmt.setString(2, password);
@@ -37,8 +43,12 @@ public class Usuario {
             
 
             if (rs.next()) {
+                System.out.println(" Usuario encontrado.");
                 valido = true;
-            }
+                } else {
+                    System.out.println(" Usuario no encontrado en la base de datos.");
+}
+            
         } catch (SQLException e) {
             System.out.println("Error al validar usuario: " + e.getMessage());
         } finally {

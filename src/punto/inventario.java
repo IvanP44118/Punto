@@ -1,9 +1,42 @@
 
 
 package punto;
-
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+import java.io.IOException;
 
 public class inventario extends javax.swing.JFrame {
+     private static final Logger LOGGER = Logger.getLogger(inventario.class.getName());
+    private static final String LOG_FILE = "inventario.log";
+
+    static {
+        try {
+            FileHandler fileHandler = new FileHandler(LOG_FILE, true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setLevel(Level.ALL);
+            LOGGER.info("Logger de Inventario configurado correctamente");
+        } catch (IOException e) {
+            System.err.println("Error al configurar el logger de Inventario: " + e.getMessage());
+        }
+    }
+
+     public inventario() {
+        try {
+            LOGGER.info("Iniciando ventana de Inventario");
+            initComponents();
+            configurarManejoErrores();
+            configurarEventos();
+            LOGGER.info("Ventana de Inventario inicializada correctamente");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error crítico al inicializar la ventana de Inventario", e);
+            mostrarError("Error crítico al inicializar la ventana de Inventario", e);
+            System.exit(1);
+        }
+    }
+
 
     /**
      * Creates new form inventario
