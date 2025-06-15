@@ -10,6 +10,7 @@ public class inventario extends javax.swing.JFrame {
      */
     public inventario() {
         initComponents();
+         cargarProductos();
          }
                
      private void agregarProducto() {

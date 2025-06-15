@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package punto;
+
 
 /**
  *
@@ -27,86 +24,118 @@ public class panel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        ventas = new javax.swing.JButton();
+        inventario = new javax.swing.JButton();
+        empleados = new javax.swing.JButton();
+        cortecaja = new javax.swing.JButton();
+        salir = new javax.swing.JButton();
+        ReporteVenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(450, 350));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton1.setText("ventas");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 160, -1));
-
-        jButton2.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton2.setText("inventario");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 160, -1));
-
-        jButton3.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton3.setText("empleados");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 160, -1));
-
-        jButton4.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton4.setText("corte de caja");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 160, -1));
-
-        jButton5.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton5.setText("salir");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        ventas.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        ventas.setText("ventas");
+        ventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ventasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 160, -1));
+        getContentPane().add(ventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 200, -1));
 
-        jButton6.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton6.setText("Reporte de ventas");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 230, -1));
+        inventario.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        inventario.setText("inventario");
+        inventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(inventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 220, -1));
 
-        jButton7.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jButton7.setText("Editar texto de ticket");
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 230, -1));
+        empleados.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        empleados.setText("empleados");
+        empleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empleadosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(empleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 220, -1));
+
+        cortecaja.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        cortecaja.setText("corte de caja");
+        cortecaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cortecajaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cortecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 230, -1));
+
+        salir.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        salir.setText("salir");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 160, -1));
+
+        ReporteVenta.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        ReporteVenta.setText("Reporte de ventas");
+        ReporteVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteVentaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ReporteVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 230, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+                                    
+    System.exit(0);
+    }//GEN-LAST:event_salirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioActionPerformed
+   inventario inv = new inventario();
+        inv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inventarioActionPerformed
+
+    private void ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasActionPerformed
+    jfventas ventas = new jfventas();
+    ventas.setVisible(true);
+    this.dispose();
+     System.out.println("Botón ventas presionado");
+}
+}
+    }//GEN-LAST:event_ventasActionPerformed
+
+    private void ReporteVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteVentaActionPerformed
+
+    }//GEN-LAST:event_ReporteVentaActionPerformed
+
+    private void empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadosActionPerformed
+         empleados emp = new empleados();
+    emp.setVisible(true);
+    this.dispose(); // Opcional: cierra la ventana actua
+    }//GEN-LAST:event_empleadosActionPerformed
+
+    private void cortecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cortecajaActionPerformed
+    cortedecaja corte = new cortedecaja();
+    corte.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_cortecajaActionPerformed
+    
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(panel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new panel().setVisible(true);
         }
-        //</editor-fold>
+    });
+}
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new panel().setVisible(true);
@@ -115,12 +144,11 @@ public class panel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton ReporteVenta;
+    private javax.swing.JButton cortecaja;
+    private javax.swing.JButton empleados;
+    private javax.swing.JButton inventario;
+    private javax.swing.JButton salir;
+    private javax.swing.JButton ventas;
     // End of variables declaration//GEN-END:variables
 }
