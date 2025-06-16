@@ -32,6 +32,7 @@ public class panel extends javax.swing.JFrame {
         ReporteVenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Panel");
         setMinimumSize(new java.awt.Dimension(450, 350));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -97,7 +98,7 @@ public class panel extends javax.swing.JFrame {
     }//GEN-LAST:event_salirActionPerformed
 
     private void inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioActionPerformed
-    inventario inv = new inventario();
+    inventarioentario inv = new inventario();
     inv.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_inventarioActionPerformed

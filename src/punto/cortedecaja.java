@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-import punto.panel;
+
+
 package punto;
+import punto.panel;
 import javax.swing.JOptionPane;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -307,6 +304,7 @@ public class cortedecaja extends javax.swing.JFrame {
         Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CorteDeCaja");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtDineroCaja.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
@@ -330,7 +328,7 @@ public class cortedecaja extends javax.swing.JFrame {
         getContentPane().add(Dinero, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         txtSaldo.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        getContentPane().add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 180, 30));
+        getContentPane().add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 180, 30));
 
         Salir.setBackground(new java.awt.Color(204, 0, 0));
         Salir.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N

@@ -174,6 +174,7 @@ public class inventario extends javax.swing.JFrame {
         txtFilPrecioVenta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inventario");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtable1.setModel(new javax.swing.table.DefaultTableModel(
