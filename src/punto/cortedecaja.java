@@ -298,39 +298,39 @@ public class cortedecaja extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        txtDineroCaja = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        txtCorteCaja = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        Dinero = new javax.swing.JLabel();
+        txtSaldo = new javax.swing.JLabel();
         Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jLabel1.setText("Dinero en Caja");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        txtDineroCaja.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtDineroCaja.setText("Dinero en Caja");
+        getContentPane().add(txtDineroCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 200, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Corte De Caja");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
+        txtCorteCaja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtCorteCaja.setText("Corte De Caja");
+        getContentPane().add(txtCorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(51, 204, 0));
         jButton1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         jButton1.setText("Guardar");
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, 40));
 
-        jLabel3.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jLabel3.setText("dinero :");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        Dinero.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        Dinero.setText("dinero :");
+        getContentPane().add(Dinero, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 180, 30));
+        txtSaldo.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        getContentPane().add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 180, 30));
 
         Salir.setBackground(new java.awt.Color(204, 0, 0));
         Salir.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
@@ -411,13 +411,13 @@ public class cortedecaja extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Dinero;
     private javax.swing.JButton Salir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel txtCorteCaja;
+    private javax.swing.JLabel txtDineroCaja;
+    private javax.swing.JLabel txtSaldo;
     // End of variables declaration//GEN-END:variables
 
 
