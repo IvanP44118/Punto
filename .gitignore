@@ -1,0 +1,25 @@
+
+# Archivos y carpetas generados por NetBeans
+nbproject/private/
+build/
+dist/
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Archivos de compilación
+*.class
+*.form
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs o temporales
+*.log
+*.tmp
+
+# Archivos de respaldo de editores
+*~
+*.bak
