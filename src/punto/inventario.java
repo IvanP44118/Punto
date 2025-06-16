@@ -6,6 +6,14 @@ import java.util.logging.Level;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 import java.io.IOException;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+import java.util.logging.*;
+import javax.swing.table.DefaultTableModel;
+
+
 
 public class inventario extends javax.swing.JFrame {
      private static final Logger LOGGER = Logger.getLogger(inventario.class.getName());
@@ -22,100 +30,127 @@ public class inventario extends javax.swing.JFrame {
             System.err.println("Error al configurar el logger de Inventario: " + e.getMessage());
         }
     }
-
-     public inventario() {
+    
+      public inventario(String rolUsuario) {
+        if (!"administrador".equalsIgnoreCase(rolUsuario)) {
+            JOptionPane.showMessageDialog(null, "Acceso denegado. Solo el administrador puede ver el inventario.");
+            LOGGER.warning("Intento de acceso al inventario por usuario no administrador: " + rolUsuario);
+            dispose();
+            return;
+        }
+        inicializar();
+        }
+        public inventario() {
+        inicializar();
+    }
+          private void inicializar() {
         try {
             LOGGER.info("Iniciando ventana de Inventario");
             initComponents();
-            configurarManejoErrores();
             configurarEventos();
             LOGGER.info("Ventana de Inventario inicializada correctamente");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error crítico al inicializar la ventana de Inventario", e);
-            mostrarError("Error crítico al inicializar la ventana de Inventario", e);
+            JOptionPane.showMessageDialog(this, "Error crítico al iniciar: " + e.getMessage());
             System.exit(1);
         }
     }
+           private void configurarEventos() {
+        btnagregar.addActionListener(e -> agregarProducto());
 
-
-    /**
-     * Creates new form inventario
-     */
-    public inventario() {
-        initComponents();
-         cargarProductos();
-         }
-               
-     private void agregarProducto() {
-    try {
-        String idTexto = txtid.getText().trim();
-        String nombre = txtnombre.getText().trim();
-        String cantidadTexto = txtcantidad.getText().trim();
-
-        if (idTexto.isEmpty() || nombre.isEmpty() || cantidadTexto.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
-            return;
-        }
-
-        int id = Integer.parseInt(idTexto);
-        int cantidad = Integer.parseInt(cantidadTexto);
-
-        java.sql.Connection con = conex.Conexion.getConexion();
-
-        // Verificar si el producto ya existe
-        String verificarSQL = "SELECT COUNT(*) FROM productos WHERE id_producto = ?";
-        java.sql.PreparedStatement verificarStmt = con.prepareStatement(verificarSQL);
-        verificarStmt.setInt(1, id);
-        java.sql.ResultSet rs = verificarStmt.executeQuery();
-        rs.next();
-        boolean existe = rs.getInt(1) > 0;
-
-        if (existe) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El producto ya existe. Usa editar para modificarlo.");
-            return;
-        }
-
-        // Insertar en productos
-        String sqlInsertar = "INSERT INTO productos (id_producto, nombre, stock, categoria_id, precio_unitario) VALUES (?, ?, ?, ?, ?)";
-        java.sql.PreparedStatement ps = con.prepareStatement(sqlInsertar);
-        ps.setInt(1, id);
-        ps.setString(2, nombre);
-        ps.setInt(3, cantidad);
-        ps.setInt(4, 1); // Categoria por defecto, puedes usar una lista desplegable en el futuro
-        ps.setDouble(5, 0.0); // Precio por defecto
-        ps.executeUpdate();
-
-        // Insertar en movimientos_inventario
-        String sqlMov = "INSERT INTO movimientos_inventario (producto_id, tipo_movimiento, cantidad) VALUES (?, 'entrada', ?)";
-        java.sql.PreparedStatement psMov = con.prepareStatement(sqlMov);
-        psMov.setInt(1, id);
-        psMov.setInt(2, cantidad);
-        psMov.executeUpdate();
-
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtable1.getModel();
-        modelo.addRow(new Object[]{id, nombre, cantidad});
-
-        javax.swing.JOptionPane.showMessageDialog(this, "Producto agregado correctamente.");
-
-        txtid.setText("");
-        txtnombre.setText("");
-        txtcantidad.setText("");
-
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "ID y Cantidad deben ser números enteros.");
-    } catch (java.sql.SQLIntegrityConstraintViolationException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un producto con ese ID.");
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al agregar producto: " + e.getMessage());
+        btnsalir.addActionListener(e -> {
+            LOGGER.info("Botón salir presionado. Regresando al menú principal.");
+            dispose();
+            new panel().setVisible(true); // asegúrate de que la clase 'panel' exista
+        });
     }
+    private void agregarProducto() {
+        try {
+ String idTexto = txtFilcodigo.getText().trim();
+            String nombre = txtFilNombre.getText().trim();
+            String cantidadTexto = txtFilStock.getText().trim();
+            String precioCompraTexto = txtFilPrecioCompra.getText().trim();
+            String precioVentaTexto = txtFilPrecioVenta.getText().trim();
+
+            if (idTexto.isEmpty() || nombre.isEmpty() || cantidadTexto.isEmpty() ||
+                precioCompraTexto.isEmpty() || precioVentaTexto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+                return;
+            }
+
+      int id = Integer.parseInt(idTexto);
+            int cantidad = Integer.parseInt(cantidadTexto);
+            double precioCompra = Double.parseDouble(precioCompraTexto);
+            double precioVenta = Double.parseDouble(precioVentaTexto);
+            
+            Connection con = conex.Conexion.getConexion();
+
+            String verificarSQL = "SELECT COUNT(*) FROM productos WHERE id_producto = ?";
+            PreparedStatement verificarStmt = con.prepareStatement(verificarSQL);
+            verificarStmt.setInt(1, id);
+            try (ResultSet rs = verificarStmt.executeQuery()) {
+                    rs.next();
+                    if (rs.getInt(1) > 0) {
+                        JOptionPane.showMessageDialog(this, "El producto ya existe. Usa editar para modificarlo.");
+                        return;
+                    }
+                }
+            }
+          
+              String sqlInsertar = "INSERT INTO productos (id_producto, nombre, stock, categoria_id, precio_unitario, precio_venta) VALUES (?, ?, ?, ?, ?, ?)";
+           try (PreparedStatement ps = con.prepareStatement(sqlInsertar)) {
+            ps.setInt(1, id);
+            ps.setString(2, nombre);
+            ps.setInt(3, cantidad);
+            ps.setInt(4, 1); // categoria_id fija
+            ps.setDouble(5, precioCompra);
+            ps.setDouble(6, precioVenta);
+            ps.executeUpdate();
+             }
+             String sqlMov = "INSERT INTO movimientos_inventario (producto_id, tipo_movimiento, cantidad) VALUES (?, 'entrada', ?)";
+            PreparedStatement psMov = con.prepareStatement(sqlMov);
+            psMov.setInt(1, id);
+            psMov.setInt(2, cantidad);
+            psMov.executeUpdate();
+             }
+            
+              DefaultTableModel modelo = (DefaultTableModel) jtable1.getModel();
+            modelo.addRow(new Object[]{id, nombre, cantidad, precioCompra, precioVenta});
+            
+            JOptionPane.showMessageDialog(this, "Producto agregado correctamente.");
+            limpiarCampos();
+            LOGGER.info("Producto agregado: ID=" + id + ", Nombre=" + nombre + ", Cantidad=" + cantidad);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID, Cantidad, Precio Compra y Venta deben ser numéricos.");
+            LOGGER.warning("Error de formato numérico: " + e.getMessage());
+        } catch (SQLIntegrityConstraintViolationException e) {
+            JOptionPane.showMessageDialog(this, "Ya existe un producto con ese ID.");
+            LOGGER.warning("Violación de restricción única: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al agregar producto: " + e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error al agregar producto", e);
+        }
+    }
+ private void editarProducto() {
+        // Implementa la lógica para editar un producto
+    }
+
+ private void eliminarProducto() {
+        // Implementa la lógica para eliminar un producto
+    }
+
+     private void limpiarCampos() {
+        txtFilcodigo.setText("");
+        txtFilNombre.setText("");
+        txtFilStock.setText("");
+        txtFilPrecioCompra.setText("");
+        txtFilPrecioVenta.setText("");
+    }
+
+    // Resto del initComponents y main exactamente igual al tuyo,
+    // no requiere cambios si ya compila y carga correctamente
 }
 
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,13 +161,17 @@ public class inventario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btneditar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtnombre = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtid = new javax.swing.JTextField();
-        label1 = new java.awt.Label();
-        txtcantidad = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JLabel();
+        txtFilNombre = new javax.swing.JTextField();
+        txtcodigo = new javax.swing.JLabel();
+        txtFilcodigo = new javax.swing.JTextField();
+        txtPrecioCompra = new java.awt.Label();
+        txtFilPrecioCompra = new javax.swing.JTextField();
         btnsalir = new javax.swing.JButton();
+        txtPrecioVenta = new javax.swing.JLabel();
+        txtStock = new javax.swing.JLabel();
+        txtFilStock = new javax.swing.JTextField();
+        txtFilPrecioVenta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -150,7 +189,7 @@ public class inventario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 670, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 670, -1));
 
         btnagregar.setBackground(new java.awt.Color(0, 255, 0));
         btnagregar.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
@@ -160,63 +199,77 @@ public class inventario extends javax.swing.JFrame {
                 btnagregarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        getContentPane().add(btnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         btneditar.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         btneditar.setText("Editar ");
-        getContentPane().add(btneditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, -1, -1));
+        getContentPane().add(btneditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
 
         btneliminar.setBackground(new java.awt.Color(255, 0, 0));
         btneliminar.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         btneliminar.setText("Eliminar");
-        getContentPane().add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        getContentPane().add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jLabel2.setText("Nombre del producto");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        txtNombre.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtNombre.setText("Nombre del producto");
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        txtnombre.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        txtnombre.addActionListener(new java.awt.event.ActionListener() {
+        txtFilNombre.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtFilNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnombreActionPerformed(evt);
+                txtFilNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 210, -1));
+        getContentPane().add(txtFilNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 250, -1));
 
-        jLabel3.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        jLabel3.setText("Id del producto");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        txtcodigo.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtcodigo.setText("Codigo");
+        getContentPane().add(txtcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
 
-        txtid.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 210, -1));
+        txtFilcodigo.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        getContentPane().add(txtFilcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 210, -1));
 
-        label1.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        label1.setText("Cantidad");
-        getContentPane().add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 30));
+        txtPrecioCompra.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtPrecioCompra.setText("Precio Compra");
+        getContentPane().add(txtPrecioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 30));
 
-        txtcantidad.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
-        txtcantidad.addActionListener(new java.awt.event.ActionListener() {
+        txtFilPrecioCompra.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtFilPrecioCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcantidadActionPerformed(evt);
+                txtFilPrecioCompraActionPerformed(evt);
             }
         });
-        getContentPane().add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 70, -1));
+        getContentPane().add(txtFilPrecioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 180, -1));
 
         btnsalir.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
         btnsalir.setText("Salir");
-        getContentPane().add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
+        getContentPane().add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, -1));
+
+        txtPrecioVenta.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtPrecioVenta.setText("Precio Venta");
+        getContentPane().add(txtPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        txtStock.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        txtStock.setText("Stock");
+        getContentPane().add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+
+        txtFilStock.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        getContentPane().add(txtFilStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 190, 30));
+
+        txtFilPrecioVenta.setFont(new java.awt.Font("Sitka Small", 0, 18)); // NOI18N
+        getContentPane().add(txtFilPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 190, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+    private void txtFilNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFilNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombreActionPerformed
+    }//GEN-LAST:event_txtFilNombreActionPerformed
 
-    private void txtcantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcantidadActionPerformed
+    private void txtFilPrecioCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFilPrecioCompraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtcantidadActionPerformed
+    }//GEN-LAST:event_txtFilPrecioCompraActionPerformed
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
     btnagregar.addActionListener(new java.awt.event.ActionListener() {
@@ -232,12 +285,7 @@ public class inventario extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
+           try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -253,8 +301,13 @@ public class inventario extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new inventario().setVisible(true);
+            }
+        });
+    }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -269,13 +322,17 @@ public class inventario extends javax.swing.JFrame {
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtable1;
-    private java.awt.Label label1;
-    private javax.swing.JTextField txtcantidad;
-    private javax.swing.JTextField txtid;
-    private javax.swing.JTextField txtnombre;
+    private javax.swing.JTextField txtFilNombre;
+    private javax.swing.JTextField txtFilPrecioCompra;
+    private javax.swing.JTextField txtFilPrecioVenta;
+    private javax.swing.JTextField txtFilStock;
+    private javax.swing.JTextField txtFilcodigo;
+    private javax.swing.JLabel txtNombre;
+    private java.awt.Label txtPrecioCompra;
+    private javax.swing.JLabel txtPrecioVenta;
+    private javax.swing.JLabel txtStock;
+    private javax.swing.JLabel txtcodigo;
     // End of variables declaration//GEN-END:variables
 }

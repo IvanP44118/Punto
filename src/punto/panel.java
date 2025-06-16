@@ -93,14 +93,13 @@ public class panel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-                                    
-    System.exit(0);
+     System.exit(0);
     }//GEN-LAST:event_salirActionPerformed
 
     private void inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioActionPerformed
-   inventario inv = new inventario();
-        inv.setVisible(true);
-        this.dispose();
+    inventario inv = new inventario();
+    inv.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_inventarioActionPerformed
 
     private void ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasActionPerformed
@@ -108,8 +107,8 @@ public class panel extends javax.swing.JFrame {
     ventas.setVisible(true);
     this.dispose();
      System.out.println("Botón ventas presionado");
-}
-}
+
+
     }//GEN-LAST:event_ventasActionPerformed
 
     private void ReporteVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteVentaActionPerformed
@@ -117,9 +116,9 @@ public class panel extends javax.swing.JFrame {
     }//GEN-LAST:event_ReporteVentaActionPerformed
 
     private void empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadosActionPerformed
-         empleados emp = new empleados();
-    emp.setVisible(true);
-    this.dispose(); // Opcional: cierra la ventana actua
+        empleados emp = new empleados();
+        emp.setVisible(true);
+        this.dispose(); // Opcional: cierra la ventana actua
     }//GEN-LAST:event_empleadosActionPerformed
 
     private void cortecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cortecajaActionPerformed
@@ -129,19 +128,13 @@ public class panel extends javax.swing.JFrame {
     }//GEN-LAST:event_cortecajaActionPerformed
     
     public static void main(String args[]) {
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new panel().setVisible(true);
-        }
-    });
-}
-
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new panel().setVisible(true);
+            public void run () {
+            new panel().setVisible(true);
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ReporteVenta;
